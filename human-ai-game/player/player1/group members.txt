@@ -1,0 +1,8 @@
+Group name: Asgalaxy
+Group icon: space-invaders
+
+Group members:
+Peter Quill
+Thor, Son of Odin
+Groot
+

@@ -1,0 +1,204 @@
+html, body {
+    margin: 0;
+    font-family: 'IBM Plex Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+  }
+  #app {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+  }
+  .screen {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+    margin: 0 10px;
+    padding: 5px;
+    overflow: auto;
+  }
+  .screen-head {
+    font-size: 200%;
+    font-weight: lighter;
+    border-bottom: 1px dashed #aaa;
+  }
+  #main-content {
+    flex-grow: 3;
+  }
+  #game-pad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 30px;
+    overflow: auto;
+  }
+  .squarerow {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+    flex-direction: row;
+    width: 100%;
+  }
+  .square {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+    font-size: 300%;
+    min-width: 3ex;
+    min-height: 3ex; 
+    border: 1px solid gray;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -moz-user-select: none;
+  }
+  .square:hover {
+    background-color: #dddddd;
+  }
+  .square:first-child { border-left-width: 0pt!important; }
+  .square:last-child { border-right-width: 0pt!important; }
+  .squarerow:first-child .square { border-top-width: 0pt!important; }
+  .squarerow:last-child .square { border-bottom-width: 0pt!important; }
+  #controls { 
+    display: flex;
+    flex-direction: row;
+    font-size: 200%;
+    padding: 5px 0px;
+    justify-content: center;
+  }
+  .player-block, .control-block {
+    width: 3ex;
+    height: 3ex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -moz-user-select: none;
+    border: 1pt solid gray;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  .player-block.selected:hover, .control-block:hover {
+    background-color: #eee;
+  }
+  .player-block, .control-block.unselected {
+    color: gray;
+    background-color: #dddddd;
+  }
+  .player-block.selected {
+    color: black;
+    background-color: #ffffff;
+  }
+  .message {
+    display: flex;
+    font-size: 200%;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+  }
+  .hide { opacity: 0; }
+  .overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    background-color: #ffffffaa;
+    display: flex;
+    flex-direction: column;
+  }
+  .overlay-box {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    border: 1pt solid #dddddd;
+    overflow: auto;
+  } 
+  .overlay-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 200%;
+  }
+  .overlay-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    font-size: 200%;
+  }
+  .setting-head {
+    font-size: 150%;
+  }
+  .setting-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: auto;
+    margin-bottom: 10px;
+  }
+  .setting-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .setting-text {
+    display: flex;
+    height: 3ex;
+    border: 1pt solid #ddd;
+    margin-top: 3px;
+    padding: 0 3px;
+    align-items: center;
+  }
+  .setting-text.selected {
+    background-color: #ddd;
+  }
+  .additional-player-block {
+    display: flex;
+    width: 3ex;
+    height: 3ex;
+    border: 1pt solid #ddd;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3px;
+    margin-left: 3px;
+  }
+  .additional-player-block.selected {
+    background-color: #ddd;
+  }
+  .additional-player-block.hide {
+    display: none;
+  }
+  #log-list, #game-info-list {
+    border: 1px solid #bbb;
+  }
+  #game-info-list {
+    margin-bottom: 5px;
+  }
+  .game-info-row {
+    border-bottom: 1px solid #ddd;
+  }
+  .log-msg:nth-child(even) {
+      /* color: #999; */
+      background-color: #ddd;
+  }
+  .game-info-row {
+    display: flex;
+    flex-direction: row;
+  }
+  .game-info-row>* {
+    flex: 1 0 0;
+  }

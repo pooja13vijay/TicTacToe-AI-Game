@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:200,400,700"> 
+    <link rel="stylesheet" href="./static/frontend.css">
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="screen" id="main-content">
+        <div class="message" v-show="winning_player.length > 0">
+          Player&nbsp;<div :class="['mdi', 'mdi-' + ((winning_player.length > 0) ? player[winning_player[0].n] : '')]"></div>&nbsp;won!
+        </div>
+        <div class="message" v-show="tie">
+          It's a tie!
+        </div>
+        <div class="message hide" v-show="!tie && !(winning_player.length > 0)">
+          Placeholder
+        </div>
+        <div id="game-pad">
+          <div class="squarerow" v-for="r in [...Array(grid_size).keys()]">
+            <div :class="['square', 'mdi', (s == -1) ? '' : 'mdi-'+player[s]]" v-for="(s,i) in squares.slice(r*grid_size,r*grid_size+grid_size)" @click="(s == -1) ? fillAndSwitch(r*grid_size+i) : null"></div>
+          </div>
+        </div>
+        <div id="controls">
+          <div v-for="p in player" :key="p" :class="['player-block', (player[currentplayer] == p) ? 'selected' : '', 'mdi', 'mdi-' + p]"></div>
+          <!-- <div class="mdi mdi-plus control-block" @click="choosing_player = true" title="add player"></div> -->
+          <!-- <div class="mdi mdi-minus control-block" @click="player.pop()" title="remove last player"></div> -->
+          <!-- <div class="mdi mdi-playlist-plus control-block" @click="changeGrid(1)" title="increase grid by 1"></div> -->
+          <!-- <div class="mdi mdi-playlist-minus control-block" @click="changeGrid(-1)" title="reduce grid by 1"></div> -->
+          <!-- <div class="mdi mdi-account-switch control-block" @click="switchPlayer" title="skip to next player"></div> -->
+          <div class="mdi mdi-eraser control-block" @click="clearBoard" title="clear game board"></div>
+          <!-- <div :class="['mdi', 'control-block', 'mdi-numeric-2-box-outline', additional_rule ? 'selected' : 'unselected']" @click="additional_rule = !additional_rule" title="toggle additional rule"></div> -->
+          <div class="mdi mdi-account-group-outline control-block" @click="setting_player = true" title="choose players"></div>
+          <div class="mdi mdi-play-speed control-block" @click="triggerStart" title="trigger start"></div>
+        </div>
+      </div>
+
+      <div class="screen" id="side-panel">
+        <div class="screen" id="game-info-list">
+          <div class="screen-head">Game info</div>
+          <div class="screen" id="game-info-content">
+            <div v-for="v,k in game_info" class="game-info-row">
+              <div class="game-info-key">{{ k }}</div>
+              <div class="game-info-value" v-html="v"></div>
+            </div>
+          </div>
+        </div>
+        <div class="screen" id="log-list">
+          <div class="screen-head">Log</div>
+          <div class="screen" id="log-content">
+              <div v-for="l in log" class="log-msg">{{ l }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- <div class="overlay" v-show="choosing_player">
+        <div class="overlay-box">
+          <div class="overlay-title">
+            Choose meaple for new player:
+          </div>
+          <div class="overlay-content">
+            <div v-for="p in additional_player" 
+              :class="['additional-player-block', 'mdi', 'mdi-'+p, (p == chosen_additional_player) ? 'selected' : '', (player.includes(p)) ? 'hide' : '']"
+              @click="chosen_additional_player = p"></div>
+          </div>
+          <div class="overlay-controls">
+            <div class="control-block mdi mdi-thumb-up-outline" @click="addPlayer"></div>
+            <div class="control-block mdi mdi-close" @click="choosing_player = false"></div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="overlay" v-show="setting_player">
+        <div class="overlay-box">
+          <template v-for="i in [0,1]">
+            <div class="setting-head">
+              Player {{ i + 1 }}:
+            </div>
+            <div class="setting-content">
+              <div class="setting-option" @click="setPlayerHuman(i)">
+                <div :class="['setting-text', player_settings[i] == '' ? 'selected' : '']"><div class="mdi mdi-human-handsup"></div>&nbsp;Human</div>
+              </div>
+              <div v-for="p in ai_players" 
+                :class="['setting-option', 'mdi', 'mdi-'+p, (player_settings[i] == p) ? 'selected' : '']"
+                @click="setPlayer(i,p)">
+                <div :class="['setting-text', player_settings[i] == p ? 'selected' : '']"><div class="mdi mdi-laptop"></div>&nbsp;{{ p }}</div>
+              </div>
+            </div>
+          </template>
+          <div class="overlay-controls">
+            <div class="control-block mdi mdi-close" @click="setting_player = false"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./static/frontend.js"></script>
+  </body>
+</html>
